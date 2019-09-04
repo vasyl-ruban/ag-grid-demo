@@ -5,7 +5,7 @@ import { IDatasource, IGetRowsParams } from 'ag-grid-community';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService implements IDatasource{
+export class UserService implements IDatasource {
 
   constructor() { }
 
@@ -30,6 +30,8 @@ export class UserService implements IDatasource{
 
   public getRows(params: IGetRowsParams): void {
     const { startRow, endRow, filterModel, successCallback } = params;
+
+    console.log(params);
 
     this.getUsers(startRow, endRow)
       .subscribe(users => successCallback(users));

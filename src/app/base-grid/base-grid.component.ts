@@ -21,14 +21,16 @@ export class BaseGridComponent implements OnInit {
 }
 
 class BaseGridOptions implements GridOptions {
-  rowData;
+  rowData: any[];
+
   defaultColDef = {
+    sortable: false,
     filter: false
   };
   columnDefs = [
     { headerName: 'id', field: 'id', sortable: true },
-    { headerName: 'name', field: 'name', filter: true },
-    { headerName: 'email', field: 'email'},
+    { headerName: 'name', field: 'name', filter: 'agTextColumnFilter' },
+    { headerName: 'email', field: 'email', editable: true },
   ];
 
   // will add new row to the table with filter input

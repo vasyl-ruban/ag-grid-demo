@@ -26,7 +26,7 @@ class GridOptionsWithSelection implements GridOptions {
     { checkboxSelection: true, headerCheckboxSelection: true },
     { headerName: 'id', field: 'id', sortable: true },
     { headerName: 'name', field: 'name', filter: true },
-    { headerName: 'email', field: 'email'},
+    { headerName: 'email', field: 'email' },
   ];
 
   rowSelection = 'multiple';

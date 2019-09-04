@@ -11,11 +11,9 @@ export class InfiniteScrollComponent implements OnInit {
 
   gridOptions = new InfiniteScrollGridOptions();
 
-  constructor(public userService: UserService) { }
+  constructor() {}
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe(users => this.gridOptions.rowData = users);
   }
 
 }
