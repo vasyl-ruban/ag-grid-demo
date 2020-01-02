@@ -16,11 +16,20 @@ export class GridFiltersComponent implements OnInit {
   ngOnInit() {
   }
 
+  click() {
+    console.log(this.gridOptions.columnApi.getColumnState());
+    console.log(this.gridOptions.columnApi.getColumnGroupState());
+    console.log(this.gridOptions.columnApi.getSortModel());
+    console.log(this.gridOptions.columnApi.getFilterModel());
+  }
+
 }
 
 class FilterGridOptions implements GridOptions {
+  columnApi: any;
   rowData;
   defaultColDef = {
+    resizable: true,
     filter: true,
     filterParams: {
       applyButton: true,

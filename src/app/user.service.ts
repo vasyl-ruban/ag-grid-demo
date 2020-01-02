@@ -25,13 +25,18 @@ export class UserService implements IDatasource {
         });
     }
 
+    users.push({
+      id: String(0),
+      name: `name `,
+      email: `mail@example.com`,
+      birthDate: null
+    });
+
     return users;
   }
 
   public getRows(params: IGetRowsParams): void {
     const { startRow, endRow, filterModel, successCallback } = params;
-
-    console.log(params);
 
     this.getUsers(startRow, endRow)
       .subscribe(users => successCallback(users));

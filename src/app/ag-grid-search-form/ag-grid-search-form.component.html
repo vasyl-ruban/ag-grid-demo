@@ -1,0 +1,116 @@
+<div *ngIf="searchForm" class="ag-grid-search-form">
+<!--  <button (click)="addItem()">Add form control</button>-->
+
+<!--  <div *ngFor="let control of searchForm.controls; let i = index;">-->
+
+<!--    <select [formControl]="control.get('field')">-->
+<!--      {{ tableColSelectOptions.length }}-->
+<!--      <option *ngFor="let option of tableColSelectOptions" [value]="option.value">{{ option.label }}</option>-->
+<!--    </select>-->
+
+<!--    <select [formControl]="control.get('selectedFilterType')">-->
+<!--      <option *ngFor="let option of control.get('availableFilterTypes')" [value]="option.value">{{ option.label }}</option>-->
+<!--    </select>-->
+
+<!--    <input [formControl]="control.get('value')" />-->
+<!--    <button (click)="removeItem(i)">Remove form control at {{ i }}</button>-->
+<!--  </div>-->
+
+  <div *ngFor="let control of searchForm.controls; let i = index">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Field name</mat-label>
+      <mat-select [formControl]="control.get('field')">
+        <mat-option *ngFor="let option of (availableFieldValues$ | async)" [value]="option.value">{{ option.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-select [formControl]="control.get('filterType')">
+        <mat-option *ngFor="let option of availableFilter[control.get('field').value.filter]" [value]="option.value">{{ option.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <span [ngSwitch]="control.get('filterType').value">
+
+      <span *ngSwitchCase="numberFilterEnum.Range">
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="control.get('value')" />
+        </mat-form-field>
+        -
+        <mat-form-field appearance="outline">
+          <input matInput [formControl]="control.get('value2')" />
+        </mat-form-field>
+      </span>
+
+      <mat-form-field
+        *ngSwitchCase="dateFilterEnum.Equal"
+        appearance="outline">
+        <input matInput [matDatepicker]="picker" [formControl]="control.get('value')" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngSwitchCase="dateFilterEnum.Grater"
+        appearance="outline">
+        <input matInput [matDatepicker]="picker" [formControl]="control.get('value')" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field
+        *ngSwitchCase="dateFilterEnum.Less"
+        appearance="outline">
+        <input matInput [matDatepicker]="picker" [formControl]="control.get('value')" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <span *ngSwitchCase="dateFilterEnum.Range">
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker" [formControl]="control.get('value')" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        -
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="picker2" [formControl]="control.get('value2')" />
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </span>
+
+      <mat-form-field
+        *ngSwitchDefault
+        appearance="outline">
+        <input matInput [formControl]="control.get('value')" />
+      </mat-form-field>
+
+    </span>
+
+    <button
+      mat-icon-button
+      (click)="removeItem(i)"
+      [disabled]="searchForm.controls.length <= 1">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+
+    <button
+      *ngIf="searchForm.controls.length - 1 === i"
+      mat-icon-button
+      (click)="addItem()">
+      <mat-icon>add</mat-icon>
+    </button>
+
+  </div>
+
+</div>
+
+<button
+  mat-raised-button
+  color="primary"
+  (click)="submit()">
+  Search
+</button>
